@@ -1,4 +1,4 @@
-package com.xuecheng.model.po;
+package com.xuecheng.content.model.po;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -16,8 +16,8 @@ import lombok.Data;
  * @author 陈泽哲
  */
 @Data
-@TableName("course_publish")
-public class CoursePublish implements Serializable {
+@TableName("course_publish_pre")
+public class CoursePublishPre implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -112,23 +112,18 @@ public class CoursePublish implements Serializable {
     private String teachers;
 
     /**
-     * 发布时间
+     * 提交时间
      */
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createDate;
 
     /**
-     * 上架时间
+     * 审核时间
      */
-    private LocalDateTime onlineDate;
+    private LocalDateTime auditDate;
 
     /**
-     * 下架时间
-     */
-    private LocalDateTime offlineDate;
-
-    /**
-     * 发布状态
+     * 状态
      */
     private String status;
 
