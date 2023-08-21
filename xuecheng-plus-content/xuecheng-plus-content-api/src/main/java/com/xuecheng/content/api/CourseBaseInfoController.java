@@ -1,6 +1,6 @@
 package com.xuecheng.content.api;
 
-import com.xuecheng.base.execption.ValidationGroups;
+import com.xuecheng.base.exception.ValidationGroups;
 import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
 import com.xuecheng.content.model.dto.*;
