@@ -1,7 +1,9 @@
 package com.xuecheng.content.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.xuecheng.base.execption.XueChengPlusException;
 import com.xuecheng.content.mapper.TeachplanMapper;
+import com.xuecheng.content.mapper.TeachplanMediaMapper;
 import com.xuecheng.content.model.dto.SaveTeachplanDto;
 import com.xuecheng.content.model.dto.TeachplanDto;
 import com.xuecheng.content.model.po.Teachplan;
@@ -24,6 +26,10 @@ public class TeachplanServiceImpl implements TeachplanService {
 
     @Autowired
     TeachplanMapper teachplanMapper;
+
+    @Autowired
+    private TeachplanMediaMapper teachplanMediaMapper;
+
     @Override
     public List<TeachplanDto> findTeachplanTree(long courseId) {
         return teachplanMapper.selectTreeNodes(courseId);
@@ -52,6 +58,29 @@ public class TeachplanServiceImpl implements TeachplanService {
             teachplanMapper.insert(teachplanNew);
 
         }
+    }
+
+    @Override
+    public void deleteTeachplan(Long id) {
+        //先根据ID查询信息
+        Teachplan teachplan = teachplanMapper.selectById(id);
+        //判断parentid是否为0
+        if (teachplan.getParentid() != 0){
+            //不为0说明是小节，可以直接删除
+            teachplanMapper.deleteById(id);
+            //同时删除关联的信息
+            teachplanMediaMapper.deleteByTeachplanId(id);
+            return;
+        }
+        //为0说明是章节,需要判断是否有子小节
+        List<TeachplanDto> teachplanDtos = teachplanMapper.selectByParentId(id);
+        if (teachplanDtos.size() == 0){
+            //没有子小节，可以删除章节
+            teachplanMapper.deleteById(id);
+            return;
+        }
+        //否则报错
+        throw new XueChengPlusException("课程计划信息还有子级信息，无法操作");
     }
 
     /**

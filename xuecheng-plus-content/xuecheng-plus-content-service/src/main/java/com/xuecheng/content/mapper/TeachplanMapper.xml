@@ -98,4 +98,8 @@
                  two.orderby
     </select>
 
+    <select id="selectByParentId" resultType="com.xuecheng.content.model.dto.TeachplanDto">
+        select * from teachplan where parentid = #{id}
+    </select>
+
 </mapper>

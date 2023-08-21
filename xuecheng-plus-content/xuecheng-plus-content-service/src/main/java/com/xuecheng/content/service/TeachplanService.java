@@ -31,4 +31,9 @@ public interface TeachplanService {
      * @date 2022/9/9 13:39
      */
     public void saveTeachplan(SaveTeachplanDto teachplanDto);
+
+    /**
+     * 删除课程集合信息
+     */
+    void deleteTeachplan(Long id);
 }

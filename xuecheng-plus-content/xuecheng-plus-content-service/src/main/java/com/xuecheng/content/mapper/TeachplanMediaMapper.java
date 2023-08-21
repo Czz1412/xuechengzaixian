@@ -12,4 +12,9 @@ import com.xuecheng.content.model.po.TeachplanMedia;
  */
 public interface TeachplanMediaMapper extends BaseMapper<TeachplanMedia> {
 
+    /**
+     * 根据课程计划id删除关联信息
+     * @param id
+     */
+    void deleteByTeachplanId(Long id);
 }

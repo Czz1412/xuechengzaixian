@@ -64,4 +64,10 @@ public class CourseBaseInfoController {
         teachplanService.saveTeachplan(teachplan);
     }
 
+    @ApiOperation("删除课程计划信息")
+    @DeleteMapping("/teachplan/{id}")
+    public void deleteTeachplan(@PathVariable Long id){
+        teachplanService.deleteTeachplan(id);
+    }
+
 }

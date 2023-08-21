@@ -22,4 +22,9 @@ public interface TeachplanMapper extends BaseMapper<Teachplan> {
      * @date 2022/9/9 11:10
      */
     public List<TeachplanDto> selectTreeNodes(long courseId);
+
+    /**
+     * 根据id查询是否有子小节
+     */
+    List<TeachplanDto> selectByParentId(Long id);
 }
