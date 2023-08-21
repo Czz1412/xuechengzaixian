@@ -5,6 +5,7 @@ import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
 import com.xuecheng.content.model.dto.*;
 import com.xuecheng.content.model.po.CourseBase;
+import com.xuecheng.content.model.po.CourseTeacher;
 import com.xuecheng.content.service.CourseBaseInfoService;
 import com.xuecheng.content.service.TeachplanService;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author czz
@@ -81,5 +84,11 @@ public class CourseBaseInfoController {
     @PostMapping("/teachplan/moveup/{id}")
     public void moveup(@PathVariable Long id){
         teachplanService.moveUp(id);
+    }
+
+    @ApiOperation("查询教师")
+    @GetMapping("/courseTeacher/list/{courseid}")
+    public List<CourseTeacher> getTeacherList(@PathVariable Long courseid){
+        return courseBaseInfoService.getTeacherList(courseid);
     }
 }

@@ -4,6 +4,9 @@ import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
 import com.xuecheng.content.model.dto.*;
 import com.xuecheng.content.model.po.CourseBase;
+import com.xuecheng.content.model.po.CourseTeacher;
+
+import java.util.List;
 
 /**
  * @author czz
@@ -32,4 +35,12 @@ public interface CourseBaseInfoService {
      * @description 修改课程信息
      */
     public CourseBaseInfoDto updateCourseBase(Long companyId, EditCourseDto dto);
+
+    /**
+     * 根据课程Id查询教师信息
+     * @param courseid
+     * @return
+     */
+    List<CourseTeacher> getTeacherList(Long courseid);
+
 }
