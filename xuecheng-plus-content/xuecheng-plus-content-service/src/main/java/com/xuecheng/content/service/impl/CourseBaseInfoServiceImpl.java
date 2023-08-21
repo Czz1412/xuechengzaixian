@@ -233,4 +233,23 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         queryWrapper.eq(CourseTeacher::getCourseId, courseid);
         return courseTeacherMapper.selectList(queryWrapper);
     }
+
+    @Override
+    public CourseTeacher saveCourseTeacher(CourseTeacher courseTeacher) {
+        courseTeacherMapper.insert(courseTeacher);
+        return courseTeacher;
+    }
+
+    @Override
+    public CourseTeacher updateCourseTeacher(CourseTeacher courseTeacher) {
+        courseTeacherMapper.updateById(courseTeacher);
+        return courseTeacher;
+    }
+
+    @Override
+    public void deleteCourseTeacher(Long courseid, Long id) {
+        LambdaQueryWrapper<CourseTeacher> queryWrapper = new LambdaQueryWrapper<CourseTeacher>();
+        queryWrapper.eq(CourseTeacher::getCourseId, courseid).eq(CourseTeacher::getId, id);
+        courseTeacherMapper.delete(queryWrapper);
+    }
 }

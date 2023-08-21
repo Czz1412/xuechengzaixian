@@ -43,4 +43,24 @@ public interface CourseBaseInfoService {
      */
     List<CourseTeacher> getTeacherList(Long courseid);
 
+    /**
+     * 新增教师
+     * @param courseTeacher
+     * @return
+     */
+    CourseTeacher saveCourseTeacher(CourseTeacher courseTeacher);
+
+    /**
+     * 修改教师
+     * @param courseTeacher
+     * @return
+     */
+    CourseTeacher updateCourseTeacher(CourseTeacher courseTeacher);
+
+    /**
+     * 删除教师
+     * @param courseid
+     * @param id
+     */
+    void deleteCourseTeacher(Long courseid, Long id);
 }

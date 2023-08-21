@@ -91,4 +91,22 @@ public class CourseBaseInfoController {
     public List<CourseTeacher> getTeacherList(@PathVariable Long courseid){
         return courseBaseInfoService.getTeacherList(courseid);
     }
+
+    @ApiOperation("添加教师")
+    @PostMapping("/courseTeacher")
+    public CourseTeacher saveCourseTeacher(@RequestBody CourseTeacher courseTeacher){
+        return courseBaseInfoService.saveCourseTeacher(courseTeacher);
+    }
+
+    @ApiOperation("修改教师")
+    @PutMapping("/courseTeacher")
+    public CourseTeacher updateCourseTeacher(@RequestBody CourseTeacher courseTeacher){
+        return courseBaseInfoService.updateCourseTeacher(courseTeacher);
+    }
+
+    @ApiOperation("删除教师")
+    @DeleteMapping("/ourseTeacher/course/{courseid}/{id}")
+    public void deleteCourserTeacher(@PathVariable Long courseid, @PathVariable Long id){
+        courseBaseInfoService.deleteCourseTeacher(courseid, id);
+    }
 }
