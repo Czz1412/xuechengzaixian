@@ -10,10 +10,7 @@ import com.xuecheng.content.model.dto.AddCourseDto;
 import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.EditCourseDto;
 import com.xuecheng.content.model.dto.QueryCourseParamsDto;
-import com.xuecheng.content.model.po.CourseBase;
-import com.xuecheng.content.model.po.CourseCategory;
-import com.xuecheng.content.model.po.CourseMarket;
-import com.xuecheng.content.model.po.CourseTeacher;
+import com.xuecheng.content.model.po.*;
 import com.xuecheng.content.service.CourseBaseInfoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -48,6 +45,9 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
 
     @Autowired
     private CourseTeacherMapper courseTeacherMapper;
+
+    @Autowired
+    private TeachplanMediaMapper teachplanMediaMapper;
 
     @Override
     public PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto queryCourseParamsDto) {
@@ -225,6 +225,27 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         //查询课程信息
         CourseBaseInfoDto courseBaseInfo = this.getCourseBaseInfo(courseId);
         return courseBaseInfo;
+    }
+
+    @Transactional
+    @Override
+    public void deleteCourse(Long courseid) {
+        //查询课程基本信息
+        LambdaQueryWrapper<CourseBase> courseBaseWapper = new LambdaQueryWrapper<>();
+        courseBaseWapper.eq(CourseBase::getId, courseid);
+        courseBaseMapper.delete(courseBaseWapper);
+        //删除课程营销信息
+        LambdaQueryWrapper<CourseMarket> courseMarketWapper = new LambdaQueryWrapper<>();
+        courseMarketWapper.eq(CourseMarket::getId, courseid);
+        courseMarketMapper.delete(courseMarketWapper);
+        //删除课程计划
+        LambdaQueryWrapper<Teachplan> teachplanWrapper = new LambdaQueryWrapper<>();
+        teachplanWrapper.eq(Teachplan::getCourseId, courseid);
+        teachplanMapper.delete(teachplanWrapper);
+        //删除课程教师信息
+        LambdaQueryWrapper<TeachplanMedia> teachplanMediaWrapper = new LambdaQueryWrapper<>();
+        teachplanMediaWrapper.eq(TeachplanMedia::getCourseId, courseid);
+        teachplanMediaMapper.delete(teachplanMediaWrapper);
     }
 
     @Override

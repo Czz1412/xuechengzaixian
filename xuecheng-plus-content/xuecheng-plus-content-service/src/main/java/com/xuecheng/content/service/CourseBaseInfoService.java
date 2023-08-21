@@ -37,6 +37,13 @@ public interface CourseBaseInfoService {
     public CourseBaseInfoDto updateCourseBase(Long companyId, EditCourseDto dto);
 
     /**
+     * 删除课程基本信息
+     * 删除课程需要删除课程相关的基本信息、营销信息、课程计划、课程教师信息。
+     * @param courseid
+     */
+    void deleteCourse(Long courseid);
+
+    /**
      * 根据课程Id查询教师信息
      * @param courseid
      * @return
@@ -63,4 +70,5 @@ public interface CourseBaseInfoService {
      * @param id
      */
     void deleteCourseTeacher(Long courseid, Long id);
+
 }

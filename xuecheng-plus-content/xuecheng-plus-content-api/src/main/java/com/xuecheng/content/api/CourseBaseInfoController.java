@@ -61,6 +61,12 @@ public class CourseBaseInfoController {
         return courseBaseInfoService.updateCourseBase(companyId,editCourseDto);
     }
 
+    @ApiOperation("删除课程基本信息")
+    @DeleteMapping("/course/{courseid}")
+    public void deleteCourse(@PathVariable Long courseid){
+        courseBaseInfoService.deleteCourse(courseid);
+    }
+
     @ApiOperation("课程计划创建或修改")
     @PostMapping("/teachplan")
     public void saveTeachplan( @RequestBody SaveTeachplanDto teachplan){
