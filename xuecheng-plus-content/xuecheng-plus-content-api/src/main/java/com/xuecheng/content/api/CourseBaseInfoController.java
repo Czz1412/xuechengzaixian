@@ -70,4 +70,16 @@ public class CourseBaseInfoController {
         teachplanService.deleteTeachplan(id);
     }
 
+
+    @ApiOperation("课程计划排序——下移")
+    @PostMapping("/teachplan/movedown/{id}")
+    public void moveDown(@PathVariable Long id){
+        teachplanService.moveDown(id);
+    }
+
+    @ApiOperation("课程计划排序——上移")
+    @PostMapping("/teachplan/moveup/{id}")
+    public void moveup(@PathVariable Long id){
+        teachplanService.moveUp(id);
+    }
 }

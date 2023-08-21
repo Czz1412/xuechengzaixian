@@ -36,4 +36,16 @@ public interface TeachplanService {
      * 删除课程集合信息
      */
     void deleteTeachplan(Long id);
+
+    /**
+     * 课程计划排序——下移
+     * @param id
+     */
+    void moveDown(Long id);
+
+    /**
+     * 课程计划排序——上移
+     * @param id
+     */
+    void moveUp(Long id);
 }

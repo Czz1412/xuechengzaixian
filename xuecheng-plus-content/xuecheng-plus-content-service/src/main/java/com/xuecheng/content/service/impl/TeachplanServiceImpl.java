@@ -83,6 +83,76 @@ public class TeachplanServiceImpl implements TeachplanService {
         throw new XueChengPlusException("课程计划信息还有子级信息，无法操作");
     }
 
+    @Override
+    public void moveDown(Long id) {
+        //先查询出当前的排序
+        Teachplan teachplan = teachplanMapper.selectById(id);
+        Long parentid = teachplan.getParentid();
+        Integer orderby = teachplan.getOrderby();
+        Long courseId = teachplan.getCourseId();
+        //如果是章节并且后面没有章节，直接返回
+        if (parentid == 0){
+            //查询orderby+1的章节
+            Teachplan teachplanChange = teachplanMapper.selectByCourseIdAndParentIdAndOrderBy(courseId, parentid, orderby+1);
+            if (teachplanChange == null){
+                return;
+            }
+            //本章节后面还有章节，进行交换操作
+            Long idChange = teachplanChange.getId();
+            Integer orderbyChange = teachplanChange.getOrderby();
+            teachplanMapper.updateOrderbyByid(id, orderbyChange);
+            teachplanMapper.updateOrderbyByid(idChange, orderby);
+            return;
+        }
+
+        //如果是小节并且后面没有小节，直接返回
+        //查询orderby+1的小节
+        Teachplan teachplanChange = teachplanMapper.selectByParentIdAndOrderBy(parentid, orderby+1);
+        if (teachplanChange == null){
+            return;
+        }
+        //本小节后面还有小节，进行交换操作
+        Long idChange = teachplanChange.getId();
+        Integer orderbyChange = teachplanChange.getOrderby();
+        teachplanMapper.updateOrderbyByid(id, orderbyChange);
+        teachplanMapper.updateOrderbyByid(idChange, orderby);
+    }
+
+    @Override
+    public void moveUp(Long id) {
+        //先查询出当前的排序
+        Teachplan teachplan = teachplanMapper.selectById(id);
+        Long parentid = teachplan.getParentid();
+        Integer orderby = teachplan.getOrderby();
+        Long courseId = teachplan.getCourseId();
+        //如果是章节并且前面没有章节，直接返回
+        if (parentid == 0){
+            //查询orderby-1的章节
+            Teachplan teachplanChange = teachplanMapper.selectByCourseIdAndParentIdAndOrderBy(courseId, parentid, orderby-1);
+            if (teachplanChange == null){
+                return;
+            }
+            //本章节后面还有章节，进行交换操作
+            Long idChange = teachplanChange.getId();
+            Integer orderbyChange = teachplanChange.getOrderby();
+            teachplanMapper.updateOrderbyByid(id, orderbyChange);
+            teachplanMapper.updateOrderbyByid(idChange, orderby);
+            return;
+        }
+
+        //如果是小节并且前面没有小节，直接返回
+        //查询orderby-1的小节
+        Teachplan teachplanChange = teachplanMapper.selectByParentIdAndOrderBy(parentid, orderby-1);
+        if (teachplanChange == null){
+            return;
+        }
+        //本小节前面还有小节，进行交换操作
+        Long idChange = teachplanChange.getId();
+        Integer orderbyChange = teachplanChange.getOrderby();
+        teachplanMapper.updateOrderbyByid(id, orderbyChange);
+        teachplanMapper.updateOrderbyByid(idChange, orderby);
+    }
+
     /**
      * @description 获取最新的排序号
      * @param courseId  课程id

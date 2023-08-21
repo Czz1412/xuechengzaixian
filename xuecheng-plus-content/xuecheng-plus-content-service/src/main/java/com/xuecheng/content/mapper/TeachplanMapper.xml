@@ -27,6 +27,10 @@
         id, pname, parentid, grade, media_type, start_time, end_time, description, timelength, orderby, course_id, course_pub_id, status, is_preview, create_date, change_date
     </sql>
 
+    <update id="updateOrderbyByid">
+        update teachplan set orderby = #{orderby} where id = #{id}
+    </update>
+
     <!-- 课程分类树型结构查询映射结果 -->
     <resultMap id="treeNodeResultMap" type="com.xuecheng.content.model.dto.TeachplanDto">
         <!-- 一级数据映射 -->
@@ -100,6 +104,14 @@
 
     <select id="selectByParentId" resultType="com.xuecheng.content.model.dto.TeachplanDto">
         select * from teachplan where parentid = #{id}
+    </select>
+
+    <select id="selectByParentIdAndOrderBy" resultType="com.xuecheng.content.model.po.Teachplan">
+        select * from teachplan where parentid = #{parentid} and orderby = #{orderby}
+    </select>
+
+    <select id="selectByCourseIdAndParentIdAndOrderBy" resultType="com.xuecheng.content.model.po.Teachplan">
+        select * from teachplan where course_id = #{courseId} and parentid = #{parentid} and orderby = #{orderby}
     </select>
 
 </mapper>

@@ -3,6 +3,7 @@ package com.xuecheng.content.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xuecheng.content.model.dto.TeachplanDto;
 import com.xuecheng.content.model.po.Teachplan;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,4 +28,25 @@ public interface TeachplanMapper extends BaseMapper<Teachplan> {
      * 根据id查询是否有子小节
      */
     List<TeachplanDto> selectByParentId(Long id);
+
+    /**
+     * 根据parentid和orderby查询是否存在课程计划
+     * @param parentid
+     * @param orderby
+     * @return
+     */
+    Teachplan selectByParentIdAndOrderBy(@Param("parentid") Long parentid, @Param("orderby") Integer orderby);
+
+    /**
+     * 根据课程id，parentid和orderby查询是否存在课程计划
+     */
+    Teachplan selectByCourseIdAndParentIdAndOrderBy(@Param("courseId") Long courseId, @Param("parentid") Long parentid,@Param("orderby") Integer orderby);
+
+    /**
+     * 根据章节id修改排序顺序
+     * @param id
+     * @param orderby
+     */
+    void updateOrderbyByid(@Param("id") Long id,@Param("orderby") Integer orderby);
+
 }
