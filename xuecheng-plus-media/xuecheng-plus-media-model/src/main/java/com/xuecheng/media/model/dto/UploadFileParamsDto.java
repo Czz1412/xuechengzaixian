@@ -4,9 +4,9 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * @author Mr.M
+ * @author czz
  * @version 1.0
- * @description 文件信息
+ * @description 上传普通文件请求参数
  * @date 2023/2/17 15:09
  */
 @Data
